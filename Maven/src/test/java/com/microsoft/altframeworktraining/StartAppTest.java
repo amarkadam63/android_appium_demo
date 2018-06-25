@@ -11,6 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.io.*;
 
 
 import com.microsoft.appcenter.appium.Factory;
@@ -30,6 +31,7 @@ public class StartAppTest {
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "foo");
         capabilities.setCapability(MobileCapabilityType.APP, "[path to local repo]/Appium/Android/swiftnote.apk");
+       // capabilities.setCapability(MobileCapabilityType.APP, "/Users/thinkservice 1/Documents/appium_workspace/android_appium_demo/Maven/apps/swiftnote.apk");
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 7913);
         capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
 
@@ -48,6 +50,16 @@ public class StartAppTest {
         Thread.sleep(5000);
 
 
+    }
+
+    @Test(expected = IOException.class)
+    public void failedAppiumTest() throws MalformedURLException, InterruptedException {
+        driver = startApp();
+
+        MobileElement elem = Util.findByByOrName(driver, By.id("com.moonpi.swiftnotes:id/newNote"), "+");
+        elem.click();
+        File file = new File("/Users/thinkservice\\ 1/Documents/appium_workspace/android_appium_demo/xyz/test.txt");
+        Thread.sleep(5000);
     }
 
     @After
